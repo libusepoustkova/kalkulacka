@@ -4,7 +4,7 @@ def main():
     app=QtWidgets.QApplication([])
     window=QtWidgets.QDialog()
     #nacteni ovladatek
-    with open('kalkulacka.ui',encoding='UTF-8') as f: #f je soubor, with samo zajisti zavreni souboru)
+    with open('kalkulacka/kalkulacka.ui',encoding='UTF-8') as f: #f je soubor, with samo zajisti zavreni souboru)
         uic.loadUi(f,window)
 
     sb_operand1=window.findChild(QtWidgets.QDoubleSpinBox,'sb_operand1')
@@ -29,10 +29,10 @@ def main():
             else:
                 raise ValueError('bad operator')
         except Exception:
-            sb_result.setPrefix('ERR')
+            sb_result.setPrefix('ERR')  #nastavi error treba pri deleni nulou
             sb_result.setValue(0)
         else:
-            sb_result.setPrefix('')
+            sb_result.setPrefix('') #vymaze ERR
             sb_result.setValue(result)
 
     sb_operand1.valueChanged.connect(calculate)
@@ -43,4 +43,3 @@ def main():
     #Spusteni
     window.show()
     return app.exec()
-main()
